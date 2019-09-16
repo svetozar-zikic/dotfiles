@@ -1,2 +1,4 @@
-# settings
-linux zsh and vim settings
+# DOTFILES
+
+config files for vim, zsh and tmux
+
