@@ -26,6 +26,7 @@ if [[ -f "${HOME}/.zplugin/bin/zplugin.zsh" ]]; then
 else
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
   source "${HOME}/.zplugin/bin/zplugin.zsh"
+  zplugin update --all
 fi
 
 # <- forget completions provided up to this moment
@@ -93,11 +94,11 @@ spaceship_kubecontext() {
   [[ -z $kube_context || -z $kube_namespace ]] && return
 
   case "$kube_context" in
-    *prod*) SPACESHIP_KUBECONTEXT_COLOR="red";;
-    [aA-fF]*) SPACESHIP_KUBECONTEXT_COLOR="blue";;
-    [gG-pP]*) SPACESHIP_KUBECONTEXT_COLOR="yellow";;
-    [qQ-zZ]*) SPACESHIP_KUBECONTEXT_COLOR="green";;
-    *) SPACESHIP_KUBECONTEXT_COLOR="cyan";;
+    prod*) SPACESHIP_KUBECONTEXT_COLOR="red";;
+    dev*) SPACESHIP_KUBECONTEXT_COLOR="blue";;
+    fr1**) SPACESHIP_KUBECONTEXT_COLOR="yellow";;
+#    [qQ-zZ]*) SPACESHIP_KUBECONTEXT_COLOR="green";;
+#    *) SPACESHIP_KUBECONTEXT_COLOR="cyan";;
   esac
 
   spaceship::section \
@@ -195,3 +196,5 @@ fi
 # aliases
 alias ls="ls --color=auto"
 alias ll="ls -l"
+alias sc="ktx"
+alias sn="kns"
