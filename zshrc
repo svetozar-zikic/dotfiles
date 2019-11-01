@@ -198,3 +198,6 @@ alias ls="ls --color=auto"
 alias ll="ls -l"
 alias sc="ktx"
 alias sn="kns"
+
+# shell specific commands
+HISTCONTROL=ignorespace             # shell commands that start with space will NOT be added to history
