@@ -19,53 +19,53 @@ setopt interactivecomments
 
 # -- plugin framework
 
-if [[ -f "${HOME}/.zplugin/bin/zplugin.zsh" ]]; then
-  autoload -Uz _zplugin
-  (( ${+_comps} )) && _comps[zplugin]=_zplugin
-  source "${HOME}/.zplugin/bin/zplugin.zsh"
+if [[ -f "${HOME}/.zinit/bin/zinit.zsh" ]]; then
+  autoload -Uz _zinit
+  (( ${+_comps} )) && _comps[zinit]=_zinit
+  source "${HOME}/.zinit/bin/zinit.zsh"
 else
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
-  source "${HOME}/.zplugin/bin/zplugin.zsh"
-  zplugin update --all
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+  source "${HOME}/.zinit/bin/zinit.zsh"
+  zinit update --all
 fi
 
 # <- forget completions provided up to this moment
-zplugin cdclear -q
+zinit cdclear -q
 setopt promptsubst
 
-zplugin snippet OMZ::plugins/golang/golang.plugin.zsh
-zplugin ice wait'1' silent
-zplugin snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
+zinit snippet OMZ::plugins/golang/golang.plugin.zsh
+zinit ice wait'1' silent
+zinit snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
 
 # prezto
-zplugin snippet PZT::modules/helper/init.zsh
-zplugin snippet PZT::modules/gpg/init.zsh
-zplugin snippet PZT::modules/ssh/init.zsh
+zinit snippet PZT::modules/helper/init.zsh
+zinit snippet PZT::modules/gpg/init.zsh
+zinit snippet PZT::modules/ssh/init.zsh
 
 # syntax highlighting
-zplugin light "zdharma/fast-syntax-highlighting"
+zinit light "zdharma/fast-syntax-highlighting"
 
 # completions
-zplugin light "zsh-users/zsh-completions"
+zinit light "zsh-users/zsh-completions"
 
 # history
-zplugin snippet PZT::modules/history/init.zsh
-zplugin snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
-zplugin snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh"
+zinit snippet PZT::modules/history/init.zsh
+zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
+zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh"
 
 # fish-like style autocompletion
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
-zplugin ice wait'1' silent atload'_zsh_autosuggest_start'
-zplugin light "zsh-users/zsh-autosuggestions"
+zinit ice wait'1' silent atload'_zsh_autosuggest_start'
+zinit light "zsh-users/zsh-autosuggestions"
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
 # complete pairing brackets
-zplugin light "hlissner/zsh-autopair"
+zinit light "hlissner/zsh-autopair"
 
 # -- prompt
 
 # spaceship
-zplugin light "denysdovhan/spaceship-prompt"
+zinit light "denysdovhan/spaceship-prompt"
 
 # overwrite dir function
 spaceship_dir() {
@@ -201,3 +201,7 @@ alias sn="kns"
 
 # shell specific commands
 HISTCONTROL=ignorespace             # shell commands that start with space will NOT be added to history
+HISTSIZE=10000
+
+source <(kubectl completion zsh)
+complete -F __start_kubectl k
