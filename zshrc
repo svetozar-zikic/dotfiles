@@ -88,7 +88,7 @@ spaceship_dir() {
 spaceship_kubecontext() {
   [[ $SPACESHIP_KUBECONTEXT_SHOW == false ]] && return
 
-  spaceship::exists kubectl || return
+  spaceship::exists kubectl && spaceship::exists ~/.kube/config || return
   local kube_context=$(kubectl config current-context 2>/dev/null)
   local kube_namespace=$(kubectl config view -o "jsonpath={.contexts[?(@.name==\"$kube_context\")].context.namespace}")
   [[ -z $kube_context || -z $kube_namespace ]] && return
@@ -198,6 +198,8 @@ alias ls="ls --color=auto"
 alias ll="ls -l"
 alias sc="ktx"
 alias sn="kns"
+alias s="systemctl"
+alias gs="git status"
 
 # shell specific commands
 HISTCONTROL=ignorespace             # shell commands that start with space will NOT be added to history
