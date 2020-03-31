@@ -17,24 +17,30 @@ setopt clobber
 # enable comments on the command line
 setopt interactivecomments
 
-# -- plugin framework
-
-if [[ -f "${HOME}/.zinit/bin/zinit.zsh" ]]; then
-  autoload -Uz _zinit
-  (( ${+_comps} )) && _comps[zinit]=_zinit
-  source "${HOME}/.zinit/bin/zinit.zsh"
-else
+# install zinit if file doesn't exist
+if [[ ! -f "${HOME}/.zinit/bin/zinit.zsh" ]]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-  source "${HOME}/.zinit/bin/zinit.zsh"
   zinit update --all
 fi
 
-# <- forget completions provided up to this moment
+# source zinit as per instructions
+source "${HOME}/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# update all plugins only on reboot
+UPTIME=$(uptime | awk '{ print $3 }' | cut -d , -f1)
+if [[ $UPTIME -lt 3 ]]; then
+  zinit update --all
+  touch ~/updated-zinit-$(date +%Y-%m-%d-%T)
+fi
+
+# forget completions provided up to this moment
 zinit cdclear -q
 setopt promptsubst
 
-zinit snippet OMZ::plugins/golang/golang.plugin.zsh
-zinit ice wait'1' silent
+# zinit snippet OMZ::plugins/golang/golang.plugin.zsh
+# zinit ice wait'!1' silent
 zinit snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
 
 # prezto
@@ -55,7 +61,7 @@ zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-b
 
 # fish-like style autocompletion
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
-zinit ice wait'1' silent atload'_zsh_autosuggest_start'
+zinit ice wait'!1' silent atload'_zsh_autosuggest_start'
 zinit light "zsh-users/zsh-autosuggestions"
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
@@ -205,5 +211,5 @@ alias gs="git status"
 HISTCONTROL=ignorespace             # shell commands that start with space will NOT be added to history
 HISTSIZE=10000
 
-source <(kubectl completion zsh)
-complete -F __start_kubectl k
+#source <(kubectl completion zsh)
+#complete -F __start_kubectl k
