@@ -30,10 +30,6 @@ autoload -Uz _zinit
 
 # update all plugins only on reboot
 UPTIME=$(uptime | awk '{ print $3 }' | cut -d , -f1)
-if [[ $UPTIME -lt 3 ]]; then
-  zinit update --all
-  touch ~/updated-zinit-$(date +%Y-%m-%d-%T)
-fi
 
 # forget completions provided up to this moment
 zinit cdclear -q

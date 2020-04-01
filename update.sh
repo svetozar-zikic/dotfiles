@@ -19,7 +19,7 @@ WORK_FILES=($(ls . ))
 echo -e "The following config files will be symlinked to files in $WORK_DIR\n"
 
 for i in ${WORK_FILES[@]}; do
-  if [[ ! "$i" == "README.md" ]] && [[ "$i" != "update.sh" ]]; then
+  if [[ "$i" != "README.md" ]] && [[ "$i" != "update.sh" ]] && [[ "$i" != "gpg-agent-update.sh"]]; then
     echo $i
     if [[ -h ~/.$i ]]; then
       unlink ~/.$i
