@@ -20,6 +20,9 @@ setopt interactivecomments
 # install zinit if file doesn't exist
 if [[ ! -f "${HOME}/.zinit/bin/zinit.zsh" ]]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+  source "${HOME}/.zinit/bin/zinit.zsh"
+  autoload -Uz _zinit
+  (( ${+_comps} )) && _comps[zinit]=_zinit
   zinit update --all
 fi
 
@@ -27,9 +30,6 @@ fi
 source "${HOME}/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-
-# update all plugins only on reboot
-UPTIME=$(uptime | awk '{ print $3 }' | cut -d , -f1)
 
 # forget completions provided up to this moment
 zinit cdclear -q
