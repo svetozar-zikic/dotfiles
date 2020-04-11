@@ -20,7 +20,7 @@ WORK_FILES=($(ls $WORK_DIR | egrep -v -i '\.md$|\.sh$'))
 echo -e "The following config files will be symlinked to files in $WORK_DIR\n"
 
 for i in ${WORK_FILES[@]}; do
-  echo $i
+  echo linking $i...
   if [[ -h ~/.$i ]]; then
     unlink ~/.$i
   fi
