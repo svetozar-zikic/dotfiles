@@ -196,7 +196,6 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # aliases
-alias ls="ls --color=auto"
 alias ll="ls -l"
 alias sc="ktx"
 alias sn="kns"
