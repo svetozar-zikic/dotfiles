@@ -15,20 +15,18 @@ do
   esac
 done
 
-WORK_FILES=($(ls . ))
+WORK_FILES=($(ls $WORK_DIR | egrep -v -i '\.md$|\.sh$'))
+
 echo -e "The following config files will be symlinked to files in $WORK_DIR\n"
 
 for i in ${WORK_FILES[@]}; do
-  if [[ "$i" != "README.md" ]] && [[ "$i" != "update.sh" ]] && [[ "$i" != "gpg-agent-update.sh"]]; then
-    echo $i
-    if [[ -h ~/.$i ]]; then
-      unlink ~/.$i
-    fi
-    if [[ -f ~/.$i ]]; then
-      mv ~/.$i ~/.$i.$TIMESTAMP
-    fi
-    ln -s $WORK_DIR/$i ~/.$i 
+  echo $i
+  if [[ -h ~/.$i ]]; then
+    unlink ~/.$i
   fi
+  if [[ -f ~/.$i ]]; then
+    mv ~/.$i ~/.$i.$TIMESTAMP
+  fi
+  ln -s $WORK_DIR/$i ~/.$i
 done
 echo -e "\nDone. Enjoy your new config!"
-
