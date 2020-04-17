@@ -51,7 +51,7 @@ zinit light "zdharma/fast-syntax-highlighting"
 zinit light "zsh-users/zsh-completions"
 
 # history
-zinit snippet PZT::modules/history/init.zsh
+zinit snippet PZT::modules--history/init.zsh
 zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
 zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh"
 
@@ -208,3 +208,6 @@ HISTSIZE=10000
 
 #source <(kubectl completion zsh)
 #complete -F __start_kubectl k
+
+SPACESHIP_USER_SHOW=always
+SPACESHIP_HOST_SHOW=always
