@@ -96,11 +96,11 @@ spaceship_kubecontext() {
   [[ -z $kube_context || -z $kube_namespace ]] && return
 
   case "$kube_context" in
-    prod*) SPACESHIP_KUBECONTEXT_COLOR="red";;
-    dev*) SPACESHIP_KUBECONTEXT_COLOR="blue";;
-    fr1**) SPACESHIP_KUBECONTEXT_COLOR="yellow";;
-#    [qQ-zZ]*) SPACESHIP_KUBECONTEXT_COLOR="green";;
-#    *) SPACESHIP_KUBECONTEXT_COLOR="cyan";;
+    kube*) SPACESHIP_KUBECONTEXT_COLOR="red";;
+#    dev*) SPACESHIP_KUBECONTEXT_COLOR="blue";;
+#    **) SPACESHIP_KUBECONTEXT_COLOR="yellow";;
+    [qQ-zZ]*) SPACESHIP_KUBECONTEXT_COLOR="green";;
+    *) SPACESHIP_KUBECONTEXT_COLOR="cyan";;
   esac
 
   spaceship::section \
@@ -206,8 +206,8 @@ alias gs="git status"
 HISTCONTROL=ignorespace             # shell commands that start with space will NOT be added to history
 HISTSIZE=10000
 
-#source <(kubectl completion zsh)
-#complete -F __start_kubectl k
+source <(kubectl completion zsh)
+complete -F __start_kubectl k
 
 SPACESHIP_USER_SHOW=always
 SPACESHIP_HOST_SHOW=always
