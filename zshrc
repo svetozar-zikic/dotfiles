@@ -35,8 +35,8 @@ autoload -Uz _zinit
 zinit cdclear -q
 setopt promptsubst
 
-# zinit snippet OMZ::plugins/golang/golang.plugin.zsh
-# zinit ice wait'!1' silent
+zinit snippet OMZ::plugins/golang/golang.plugin.zsh
+zinit ice wait'!1' silent
 zinit snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
 
 # prezto
@@ -51,7 +51,7 @@ zinit light "zdharma/fast-syntax-highlighting"
 zinit light "zsh-users/zsh-completions"
 
 # history
-zinit snippet PZT::modules--history/init.zsh
+zinit snippet PZT::modules/history/init.zsh
 zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
 zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh"
 
@@ -205,6 +205,7 @@ alias gs="git status"
 # shell specific commands
 HISTCONTROL=ignorespace             # shell commands that start with space will NOT be added to history
 HISTSIZE=10000
+HISTFILE=~/.zhistory
 
 source <(kubectl completion zsh)
 complete -F __start_kubectl k
