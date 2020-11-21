@@ -9,7 +9,6 @@ alias ll='ls -l'
 alias s="systemctl"
 alias sc="ktx"
 alias sn="kns"
-alias ta='/usr/local/bin/ta.sh'
 alias history='history 0'
 
 if [[ "$OSTYPE" == "darwin"*  ]]; then alias ls='ls -G'; else alias ls='ls --color=auto'; fi

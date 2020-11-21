@@ -181,3 +181,5 @@ if [ -d ${HOME}/.zsh.d ]; then
     source $file
   done
 fi
+
+export PATH=${HOME}/.dotfiles/scripts/:$PATH

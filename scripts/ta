@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -o pipefail
+
+STATUS=$( tmux has-session -t 0 ; echo $? )
+
+if [ $STATUS -eq 0 ]; then
+  tmux attach
+else
+  tmux
+fi
