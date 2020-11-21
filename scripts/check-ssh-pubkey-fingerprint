@@ -1,0 +1,15 @@
+#!/bin/bash
+
+WARN(){
+echo "This script should be invoked with 1 argument."
+echo "Usage: $0 {{ ssh public key }}"
+echo "Example: $0 id_rsa.pub"
+exit 1
+}
+
+if [ $# != 1 ];
+then
+  WARN
+fi
+
+ssh-keygen -lf $1
