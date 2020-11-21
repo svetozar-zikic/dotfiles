@@ -35,25 +35,17 @@ autoload -Uz _zinit
 zinit cdclear -q
 setopt promptsubst
 
-zinit snippet OMZ::plugins/golang/golang.plugin.zsh
-zinit ice wait'!1' silent
-zinit snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
+zinit snippet OMZ::plugins--golang/golang.plugin.zsh
 
 # prezto
 zinit snippet PZT::modules/helper/init.zsh
 zinit snippet PZT::modules/gpg/init.zsh
-zinit snippet PZT::modules/ssh/init.zsh
 
 # syntax highlighting
 zinit light "zdharma/fast-syntax-highlighting"
 
 # completions
 zinit light "zsh-users/zsh-completions"
-
-# history
-zinit snippet PZT::modules/history/init.zsh
-zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
-zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh"
 
 # fish-like style autocompletion
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=48
@@ -63,8 +55,6 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
 # complete pairing brackets
 zinit light "hlissner/zsh-autopair"
-
-# -- prompt
 
 # spaceship
 zinit light "denysdovhan/spaceship-prompt"
@@ -149,14 +139,14 @@ SPACESHIP_GIT_STATUS_DELETED="-"
 SPACESHIP_KUBECONTEXT_PREFIX="["
 SPACESHIP_KUBECONTEXT_SUFFIX="] "
 SPACESHIP_KUBECONTEXT_SYMBOL=""
+SPACESHIP_USER_SHOW=always
+SPACESHIP_HOST_SHOW=always
 
 # -- dircolors
-
 autoload -U colors && colors
 [[ -f $HOME/.dircolors ]] && eval $(dircolors -b ${HOME}/.dircolors)
 
 # -- completion
-
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
@@ -186,29 +176,8 @@ bindkey "^[[3~" delete-char         # del key
 bindkey "^[[1;5C" forward-word      # ctrl-rightarrow - move forward one word
 bindkey "^[[1;5D" backward-word     # ctrl-leftarrow  - move backward one word
 
-# -- external files
 if [ -d ${HOME}/.zsh.d ]; then
-  for file in ${HOME}/.zsh.d/*.zsh; do
+  for file in ${HOME}/.zsh.d/enabled/*.zsh; do
     source $file
   done
 fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# aliases
-alias ll="ls -l"
-alias sc="ktx"
-alias sn="kns"
-alias s="systemctl"
-alias gs="git status"
-
-# shell specific commands
-HISTCONTROL=ignorespace             # shell commands that start with space will NOT be added to history
-HISTSIZE=10000
-HISTFILE=~/.zhistory
-
-source <(kubectl completion zsh)
-complete -F __start_kubectl k
-
-SPACESHIP_USER_SHOW=always
-SPACESHIP_HOST_SHOW=always
