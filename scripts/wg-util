@@ -1,0 +1,29 @@
+#!/bin/bash
+
+WARN(){
+echo "This script should be invoked with 1 arguments."
+echo "Usage: $0 {{ state || status }} [state = on | off]"
+echo "Example: $0 on OR $0 off OR $0 status"
+exit 1
+}
+
+if [ $# != 1 ];
+then
+  WARN
+fi
+
+if [ $1 == 'on' ]; then
+  wg-quick up wg0
+elif [ $1 == 'off' ]; then
+  wg-quick down wg0
+elif [ $1 == 'status' ]; then
+  WG_STATUS=$(sudo wg show)
+  if [ -z "$WG_STATUS" ]; then
+    echo "wireguard is currently not on, no status!"
+  else
+    sudo wg show
+  fi
+else
+  echo "Not a valid argument! Try using ON|OFF|STATUS"
+  exit 1
+fi
