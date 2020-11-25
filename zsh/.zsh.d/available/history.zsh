@@ -4,6 +4,7 @@ zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/compl
 zinit snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh"
 
 # enable reverse lookup
+bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 # don't save commands that start with space

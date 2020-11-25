@@ -1,15 +1,20 @@
 #!/bin/bash
 
 WARN(){
-echo "This script should be invoked with 1 argument."
-echo "Usage: $0 {{ ssh public key }}"
-echo "Example: $0 id_rsa.pub"
+echo "This script should be invoked with 2 arguments."
+echo "Usage: $0 {{ ssh private key }} {{ private key fingerprint }}"
+echo "Example: $0 id_rsa.pub D1ypwKGew6EK6I1zej4OpAfaa1bkuKS+KyhVrwfOuf0"
 exit 1
 }
 
-if [ $# != 1 ];
+if [ $# != 2 ];
 then
   WARN
 fi
 
-ssh-keygen -lf $1
+KEY=$(ssh-keygen -lf $1 | cut -d ':' -f2 | awk '{ print $1 }')
+
+if [[ "$KEY" == "$2" ]]; then 
+    echo 'Match, all good!'; 
+    else echo 'NO MATCh!!!'; 
+fi
