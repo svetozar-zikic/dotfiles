@@ -19,7 +19,16 @@ setopt interactivecomments
 
 # install zinit if file doesn't exist
 if [[ ! -f "${HOME}/.zinit/bin/zinit.zsh" ]]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+  VENDOR=$(cat /etc/issue | tr'[:upper:]' '[:lower:]')
+  if [[ $OSTYPE == *"darwin"* ]]; then
+    VENDOR=apple
+  fi
+  LINK=https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh
+  if [[ "${VENDOR}" == *"ubuntu"* || "${VENDOR}" == *"debian"* ]]; then
+      wget -O - ${LINK} | sh
+    else
+      sh -c "$(curl -fsSL ${LINK})"
+  fi
   source "${HOME}/.zinit/bin/zinit.zsh"
   autoload -Uz _zinit
   (( ${+_comps} )) && _comps[zinit]=_zinit
