@@ -19,7 +19,7 @@ setopt interactivecomments
 
 # install zinit if file doesn't exist
 if [[ ! -f "${HOME}/.zinit/bin/zinit.zsh" ]]; then
-  VENDOR=$(cat /etc/issue | tr'[:upper:]' '[:lower:]')
+  VENDOR=$(cat /etc/issue | tr '[:upper:]' '[:lower:]')
   if [[ $OSTYPE == *"darwin"* ]]; then
     VENDOR=apple
   fi
@@ -43,8 +43,6 @@ autoload -Uz _zinit
 # forget completions provided up to this moment
 zinit cdclear -q
 setopt promptsubst
-
-zinit snippet OMZ::plugins--golang/golang.plugin.zsh
 
 # prezto
 zinit snippet PZT::modules/helper/init.zsh
