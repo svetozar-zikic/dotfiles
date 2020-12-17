@@ -16,5 +16,5 @@ KEY=$(ssh-keygen -lf $1 | cut -d ':' -f2 | awk '{ print $1 }')
 
 if [[ "$KEY" == "$2" ]]; then 
     echo 'Match, all good!'; 
-    else echo 'NO MATCh!!!'; 
+    else echo 'NO MATCH!!!'; 
 fi

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#set -x
+
+WARN(){
+echo "This script should be invoked with 3 arguments."
+echo "Usage: $0 {{ rsa|ecdsa }} {{ hostname }} {{ remote-host-pubkey-signature }}"
+echo "Example: $0 rsa github.com nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8"
+exit 1
+}
+
+if [ $# != 3 ];
+then
+  WARN
+fi
+
+TYPE=$1
+HOST=$2
+FINGERPRINT=$3
+FP_HASH=$(ssh-keygen -lf <(ssh-keyscan -t $TYPE $HOST) | awk '{ print $2 }' | cut -d ':' -f2 )
+
+if [[ "$FP_HASH" == "$FINGERPRINT" ]]; then
+    echo 'Match, all good!';
+    else echo 'NO MATCH!!!';
+fi
+
