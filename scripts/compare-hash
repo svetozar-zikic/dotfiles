@@ -15,7 +15,7 @@ else
  exit 1
 fi
 
-if [ $( $CHECK $1 | awk '{ print $1}') == $2 ]; 
+if [ $( $CHECK "$1" | awk '{ print $1}') == $2 ]; 
   then 
     echo 'match, all good!'; 
   else 
