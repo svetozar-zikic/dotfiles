@@ -4,6 +4,7 @@ alias gc='git commit'
 alias gco='git checkout '
 alias gd='git diff '
 alias gs='git status '
+alias grv='git remote -v'
 alias la='ls -la'
 alias ll='ls -l'
 alias s="systemctl"
