@@ -103,4 +103,7 @@ if [ -d ${HOME}/.zsh.d ]; then
   done
 fi
 
-export PATH=${HOME}/.dotfiles/scripts/:$PATH
+export PATH=${HOME}/.dotfiles/scripts:$PATH
+if [ -f $HOME/.aws/aws.gpg ]; then
+  eval "$(aws-env)"
+fi

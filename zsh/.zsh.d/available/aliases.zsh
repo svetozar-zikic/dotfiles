@@ -11,6 +11,7 @@ alias s="systemctl"
 alias sc="ktx"
 alias sn="kns"
 alias history='history 0'
+alias t='terraform'
 
 if [[ "$OSTYPE" == "darwin"*  ]]; then alias ls='ls -G'; else alias ls='ls --color=auto'; fi
 [[ "$OSTYPE" == "darwin"*  ]] && alias brew-full='brew cleanup && brew upgrade && brew upgrade --cask'

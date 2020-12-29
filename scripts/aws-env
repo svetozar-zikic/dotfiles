@@ -1,0 +1,18 @@
+#!/bin/bash
+
+GPG=$(which gpg)
+CREDS=($($GPG -dq $HOME/.aws/aws.gpg))
+ID=(AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY)
+
+if [ ${#ID[@]} != 2 ]; then
+  echo Check your key names!
+  exit 1
+fi
+
+if [ ${#CREDS[@]} != 2 ]; then
+  echo Check your key values!
+  exit 1
+fi
+
+echo export ${ID[0]}=${CREDS[0]}
+echo export ${ID[1]}=${CREDS[1]}
