@@ -44,10 +44,6 @@ autoload -Uz _zinit
 zinit cdclear -q
 setopt promptsubst
 
-# prezto
-zinit snippet PZT::modules/helper/init.zsh
-zinit snippet PZT::modules/gpg/init.zsh
-
 # syntax highlighting
 zinit light "zdharma/fast-syntax-highlighting"
 
