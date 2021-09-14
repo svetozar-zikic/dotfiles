@@ -1,1 +1,0 @@
-../available/k8s.zsh
