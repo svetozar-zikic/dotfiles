@@ -5,7 +5,8 @@ config files for vim, zsh, tmux, etc
 ### install:
 
 git clone https://github.com/svetozar-zikic/dotfiles.git ~/.dotfiles
+git clone git@github.com:svetozar-zikic/dotfiles.git ~/.dotfiles
 
 cd ~/.dotfiles
 
-stow -v mutt tmux vim zsh
+stow -v tmux vim zsh
