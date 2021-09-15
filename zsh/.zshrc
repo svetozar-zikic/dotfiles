@@ -41,6 +41,11 @@ setopt interactivecomments
 setopt promptsubst
 
 # --- load enabled plugins --- #
+if [ ! -d $HOME/.zsh.d/enabled ]; then
+  mkdir -p $HOME/.zsh.d/enabled
+  $HOME/.zsh.d/enable-all.zsh
+fi
+
 if [ -d ${HOME}/.zsh.d ]; then
   for file in ${HOME}/.zsh.d/enabled/*; do
     source $file
