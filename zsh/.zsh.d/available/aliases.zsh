@@ -10,7 +10,7 @@ alias ll='ls -l'
 alias s="systemctl"
 alias sc="ktx"
 alias sn="kns"
-alias history='history 0'
+#alias history='history 0'
 alias t='terraform'
 
 if [[ "$OSTYPE" == "darwin"*  ]]; then alias ls='ls -G'; else alias ls='ls --color=auto'; fi
