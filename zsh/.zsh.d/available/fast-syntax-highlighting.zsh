@@ -1,1 +1,1 @@
-zinit light "zdharma/fast-syntax-highlighting"
+zinit light "zdharma-continuum/fast-syntax-highlighting"

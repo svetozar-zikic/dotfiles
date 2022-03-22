@@ -2,25 +2,27 @@
 
 # --- initial installation for zinit --- #
 # https://github.com/zdharma/zinit#automatic-installation-recommended
-if [[ ! -f "${HOME}/.zinit/bin/zinit.zsh" ]]; then
+LOCAL_PATH=$HOME/.local/share/zinit
+if [[ ! -f "$LOCAL_PATH/zinit.zsh" ]]; then
   VENDOR=$(cat /etc/issue | tr '[:upper:]' '[:lower:]')
   if [[ $OSTYPE == *"darwin"* ]]; then
     VENDOR=apple
   fi
-  LINK=https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh
+  #LINK=https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh
+  LINK=https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh
   if [[ "${VENDOR}" == *"ubuntu"* || "${VENDOR}" == *"debian"* ]]; then
       wget -O - ${LINK} | sh
     else
       sh -c "$(curl -fsSL ${LINK})"
   fi
-  source "${HOME}/.zinit/bin/zinit.zsh"
+  source "$LOCAL_PATH/zinit.zsh"
   autoload -Uz _zinit
   (( ${+_comps} )) && _comps[zinit]=_zinit
   zinit update --all
 fi
 
 # --- source zinit per instructions --- #
-source "${HOME}/.zinit/bin/zinit.zsh"
+source "$LOCAL_PATH/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -53,9 +55,10 @@ if [ -d ${HOME}/.zsh.d ]; then
 fi
 
 # --- add scripts to PATH --- #
-if [[ $PATH != *${HOME}/.dotfiles/scripts* ]]; then
-  export PATH=${HOME}/.dotfiles/scripts:$PATH
-fi
+#if [[ $PATH != *${HOME}/.dotfiles/scripts* ]]; then
+#  export PATH=${HOME}/.dotfiles/scripts:$PATH
+#fi
+#typeset -U PATH
 
 # --- load aws env variables --- #
 if [ -f $HOME/.aws/aws.gpg ]; then

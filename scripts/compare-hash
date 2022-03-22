@@ -15,7 +15,9 @@ else
  exit 1
 fi
 
-if [ $( $CHECK "$1" | awk '{ print $1}') == $2 ]; 
+SUM=$(echo $2 | tr '[:upper:]' '[:lower:]')
+
+if [ $( $CHECK "$1" | awk '{ print $1}') == $SUM ]; 
   then 
     echo 'match, all good!'; 
   else 
