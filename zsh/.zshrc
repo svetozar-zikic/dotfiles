@@ -1,14 +1,12 @@
 #!/bin/zsh
 
 # --- initial installation for zinit --- #
-# https://github.com/zdharma/zinit#automatic-installation-recommended
-LOCAL_PATH=$HOME/.local/share/zinit
+LOCAL_PATH=$HOME/.local/share/zinit/zinit.git
 if [[ ! -f "$LOCAL_PATH/zinit.zsh" ]]; then
   VENDOR=$(cat /etc/issue | tr '[:upper:]' '[:lower:]')
   if [[ $OSTYPE == *"darwin"* ]]; then
     VENDOR=apple
   fi
-  #LINK=https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh
   LINK=https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh
   if [[ "${VENDOR}" == *"ubuntu"* || "${VENDOR}" == *"debian"* ]]; then
       wget -O - ${LINK} | sh
@@ -24,13 +22,12 @@ fi
 # --- source zinit per instructions --- #
 source "$LOCAL_PATH/zinit.zsh"
 autoload -Uz _zinit
+autoload -U +X compinit && compinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # --- updating plugins --- #
 # update all plugins every 7 days
-# zinit update --all
-# zinit self update every 7 days
-# zinit self-update
+# zinit self-update && zinit update --all
 
 # --- shell options --- #
 # https://zsh.sourceforge.io/Intro/intro_16.html#SEC16
@@ -55,18 +52,20 @@ if [ -d ${HOME}/.zsh.d ]; then
 fi
 
 # --- add scripts to PATH --- #
-#if [[ $PATH != *${HOME}/.dotfiles/scripts* ]]; then
-#  export PATH=${HOME}/.dotfiles/scripts:$PATH
-#fi
-#typeset -U PATH
+if [[ $PATH != *${HOME}/.dotfiles/scripts* ]]; then
+  export PATH=${HOME}/.dotfiles/scripts:$PATH
+fi
+typeset -U PATH
 
-# --- load aws env variables --- #
-if [ -f $HOME/.aws/aws.gpg ]; then
-  eval "$(aws-env)"
+
+# --- load env variables --- #
+if [ -f $HOME/.github/github.gpg ] && [ -f $HOME/.github/github-id.gpg ]; then
+  eval "$(set-env $HOME/.github/github.gpg $HOME/.github/github-id.gpg 1)"
 fi
 
-# --- exports --- #
-export PASSWORD_STORE_DIR=$HOME/.pass
+if [ -f $HOME/.ddns/remote_home.gpg ] && [ -f $HOME/.ddns/remote_vars.gpg ]; then
+  eval "$(set-env $HOME/.ddns/remote_home.gpg $HOME/.ddns/remote_vars.gpg 2)"
+fi
 
-# --- direct load --- #
-source $HOME/.dotfiles/zsh/.zsh.d/available/history.zsh
+# load starship
+eval "$(starship init zsh)"

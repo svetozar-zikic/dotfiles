@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rsync -avPph -e "ssh -p $REMOTE_HOME_PORT" $REMOTE_HOME_IP:/var/lib/transmission/Downloads/ ~/Downloads --remove-source-files --progress --bwlimit=150

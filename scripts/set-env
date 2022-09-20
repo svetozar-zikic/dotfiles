@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ ${#@} != 3 ]; then
+  echo Check your input arguments!
+  exit 1
+fi
+
+GPG=$(which gpg)
+CREDS=($($GPG -dq $1))
+ID=($($GPG -dq $2))
+ARGS=($3)
+
+if [ ${#ID[@]} != $ARGS ]; then
+  echo Check your key names!
+  exit 1
+fi
+
+if [ ${#CREDS[@]} != $ARGS ]; then
+  echo Check your key values!
+  exit 1
+fi
+
+for i in $(eval echo {1..$ARGS}); do
+  j=$(( $i-1 ))
+  echo export ${ID[$j]}=${CREDS[$j]}
+done

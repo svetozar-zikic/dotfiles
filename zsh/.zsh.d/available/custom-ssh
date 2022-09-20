@@ -1,0 +1,1 @@
+ssh-srb () { ssh -p $REMOTE_HOME_PORT $REMOTE_HOME_IP -i $HOME/.ssh/srb }
