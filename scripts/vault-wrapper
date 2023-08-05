@@ -1,2 +1,2 @@
 #!/bin/sh
-gpg -qd /etc/ansible/vault/vault.gpg
+gpg -qd $HOME/.ansible/vault/vault.gpg

@@ -4,7 +4,8 @@ syntax on
 set ignorecase
 set smartcase
 set noai
-noremap <silent> <F12> :set number!<CR>
+map <S-F12> :set number! number?<CR>
+map <S-F11> :set relativenumber! relativenumber?<CR>
 inoremap <silent> jk <ESC>
 inoremap <silent> jj <ESC>
 inoremap <silent> CapsLock <ESC>
@@ -21,7 +22,3 @@ ino <up> <Nop>
 autocmd filetype yaml setlocal noai ts=2 sts=2 sw=2 et
 autocmd filetype yml setlocal noai ts=2 sts=2 sw=2 et
 autocmd filetype *.tf* setlocal noai ts=2 sts=2 sw=2 et
-
-let g:terraform_fmt_on_save=1
-""" let g:terraform_align=1
-""" autocmd BufEnter *.tf* colorscheme icansee
