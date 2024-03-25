@@ -26,7 +26,7 @@ autoload -U +X compinit && compinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # --- updating plugins --- #
-# update all plugins every 7 days
+# manual update:
 # zinit self-update && zinit update --all
 
 # --- shell options --- #
@@ -39,12 +39,13 @@ setopt clobber
 setopt interactivecomments
 setopt promptsubst
 
-# --- load enabled plugins --- #
+# --- create enabled plugins folder --- #
 if [ ! -d $HOME/.zsh.d/enabled ]; then
   mkdir -p $HOME/.zsh.d/enabled
   $HOME/.zsh.d/enable-all.zsh
 fi
 
+# --- load existing enabled plugins --- #
 if [ -d ${HOME}/.zsh.d ]; then
   for file in ${HOME}/.zsh.d/enabled/*; do
     source $file
@@ -57,15 +58,20 @@ if [[ $PATH != *${HOME}/.dotfiles/scripts* ]]; then
 fi
 typeset -U PATH
 
-
-# --- load env variables --- #
-if [ -f $HOME/.github/github.gpg ] && [ -f $HOME/.github/github-id.gpg ]; then
-  eval "$(set-env $HOME/.github/github.gpg $HOME/.github/github-id.gpg 1)"
-fi
-
-if [ -f $HOME/.ddns/remote_home.gpg ] && [ -f $HOME/.ddns/remote_vars.gpg ]; then
-  eval "$(set-env $HOME/.ddns/remote_home.gpg $HOME/.ddns/remote_vars.gpg 2)"
+# --- load env variables with sops --- #
+if [ -f $HOME/.secrets/list ]; then
+  for i in $(cat $HOME/.secrets/list); do
+    if [ -f $HOME/.$i ]; then
+      for line in $(sops -d $HOME/.$i); do
+        eval $(echo export $line)
+      done
+    fi
+  done
 fi
 
 # load starship
 eval "$(starship init zsh)"
+
+# history custom commands
+export SAVEHIST=100000
+export HISTSIZE=100000
