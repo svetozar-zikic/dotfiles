@@ -1,0 +1,16 @@
+aliases.zsh
+autocompletion.zsh
+autopair-brackets.zsh
+copy.zsh
+custom-ssh
+fast-syntax-highlighting.zsh
+golang.zsh
+gpg.zsh
+history.zsh
+jsontools.zsh
+key-bindings.zsh
+sshagent.zsh
+sudo.zsh
+zinit-anexes.zsh
+zsh-autoenv.zsh
+zsh-autosuggestions.zsh
